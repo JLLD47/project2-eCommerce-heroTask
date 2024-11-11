@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'userId')]
     private Collection $tasks;
 
+    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
+    private ?UserStats $userStats = null;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -180,6 +183,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $task->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserStats(): ?UserStats
+    {
+        return $this->userStats;
+    }
+
+    public function setUserStats(UserStats $userStats): static
+    {
+        // set the owning side of the relation if necessary
+        if ($userStats->getUserId() !== $this) {
+            $userStats->setUserId($this);
+        }
+
+        $this->userStats = $userStats;
 
         return $this;
     }

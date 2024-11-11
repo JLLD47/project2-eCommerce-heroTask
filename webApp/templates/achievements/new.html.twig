@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Achievements{% endblock %}
+
+{% block body %}
+    <h1>Create new Achievements</h1>
+
+    {{ include('achievements/_form.html.twig') }}
+
+    <a href="{{ path('app_achievements_index') }}">back to list</a>
+{% endblock %}

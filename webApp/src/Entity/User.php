@@ -46,9 +46,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
     private ?UserStats $userStats = null;
 
+    #[ORM\OneToMany(targetEntity: Achievements::class, mappedBy: 'userId')]
+    private Collection $achievements;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +204,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->userStats = $userStats;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Achievements>
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievements $achievement): static
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements->add($achievement);
+            $achievement->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievements $achievement): static
+    {
+        if ($this->achievements->removeElement($achievement)) {
+            // set the owning side to null (unless already changed)
+            if ($achievement->getUserId() === $this) {
+                $achievement->setUserId(null);
+            }
+        }
 
         return $this;
     }

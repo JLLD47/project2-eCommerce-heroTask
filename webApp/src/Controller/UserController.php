@@ -10,14 +10,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -26,7 +24,6 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -45,6 +42,15 @@ class UserController extends AbstractController
             'form' => $form,
         ]);
     }
+
+    #[Route('/profession', name: 'app_user_profession', methods: ['GET'])]
+    public function profession(UserRepository $userRepository): Response
+    {
+        return $this->render('user/profession.html.twig', [
+            'users' => $userRepository->findAll(),
+        ]);
+    }
+
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -72,10 +78,22 @@ class UserController extends AbstractController
         ]);
     }
 
+
+
+    #[Route('/profession', name: 'app_user_profession_choices', methods: ['POST','GET'])]
+    public function addProfession(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $profession = $request->get('profession');
+        $user= $this->getUser();
+        $user->setProfession($profession);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
         }

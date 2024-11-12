@@ -34,25 +34,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100)]
     private ?string $username = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $current_level = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $current_xp = null;
 
-    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'userId')]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $profession = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $strength = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $intelligence = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $constitution = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $charisma = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $xp_required = null;
+
+    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'user')]
     private Collection $tasks;
-
-    #[ORM\OneToOne(mappedBy: 'userId', cascade: ['persist', 'remove'])]
-    private ?UserStats $userStats = null;
-
-    #[ORM\OneToMany(targetEntity: Achievements::class, mappedBy: 'userId')]
-    private Collection $achievements;
 
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
-        $this->achievements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,7 +100,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
@@ -142,7 +152,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->current_level;
     }
 
-    public function setCurrentLevel(int $current_level): static
+    public function setCurrentLevel(?int $current_level): static
     {
         $this->current_level = $current_level;
 
@@ -154,9 +164,81 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->current_xp;
     }
 
-    public function setCurrentXp(int $current_xp): static
+    public function setCurrentXp(?int $current_xp): static
     {
         $this->current_xp = $current_xp;
+
+        return $this;
+    }
+
+    public function getProfession(): ?string
+    {
+        return $this->profession;
+    }
+
+    public function setProfession(?string $profession): static
+    {
+        $this->profession = $profession;
+
+        return $this;
+    }
+
+    public function getStrength(): ?int
+    {
+        return $this->strength;
+    }
+
+    public function setStrength(?int $strength): static
+    {
+        $this->strength = $strength;
+
+        return $this;
+    }
+
+    public function getIntelligence(): ?int
+    {
+        return $this->intelligence;
+    }
+
+    public function setIntelligence(?int $intelligence): static
+    {
+        $this->intelligence = $intelligence;
+
+        return $this;
+    }
+
+    public function getConstitution(): ?int
+    {
+        return $this->constitution;
+    }
+
+    public function setConstitution(?int $constitution): static
+    {
+        $this->constitution = $constitution;
+
+        return $this;
+    }
+
+    public function getCharisma(): ?int
+    {
+        return $this->charisma;
+    }
+
+    public function setCharisma(?int $charisma): static
+    {
+        $this->charisma = $charisma;
+
+        return $this;
+    }
+
+    public function getXpRequired(): ?int
+    {
+        return $this->xp_required;
+    }
+
+    public function setXpRequired(?int $xp_required): static
+    {
+        $this->xp_required = $xp_required;
 
         return $this;
     }
@@ -173,7 +255,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->tasks->contains($task)) {
             $this->tasks->add($task);
-            $task->setUserId($this);
+            $task->setUser($this);
         }
 
         return $this;
@@ -183,55 +265,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->tasks->removeElement($task)) {
             // set the owning side to null (unless already changed)
-            if ($task->getUserId() === $this) {
-                $task->setUserId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getUserStats(): ?UserStats
-    {
-        return $this->userStats;
-    }
-
-    public function setUserStats(UserStats $userStats): static
-    {
-        // set the owning side of the relation if necessary
-        if ($userStats->getUserId() !== $this) {
-            $userStats->setUserId($this);
-        }
-
-        $this->userStats = $userStats;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Achievements>
-     */
-    public function getAchievements(): Collection
-    {
-        return $this->achievements;
-    }
-
-    public function addAchievement(Achievements $achievement): static
-    {
-        if (!$this->achievements->contains($achievement)) {
-            $this->achievements->add($achievement);
-            $achievement->setUserId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAchievement(Achievements $achievement): static
-    {
-        if ($this->achievements->removeElement($achievement)) {
-            // set the owning side to null (unless already changed)
-            if ($achievement->getUserId() === $this) {
-                $achievement->setUserId(null);
+            if ($task->getUser() === $this) {
+                $task->setUser(null);
             }
         }
 

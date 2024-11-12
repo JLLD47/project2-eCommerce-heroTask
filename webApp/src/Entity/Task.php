@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
@@ -23,24 +22,20 @@ class Task
     #[ORM\Column]
     private ?bool $completed = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $difficulty = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $xp_reward = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $recurrence = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $completed_at = null;
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $userId = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -88,7 +83,7 @@ class Task
         return $this->difficulty;
     }
 
-    public function setDifficulty(int $difficulty): static
+    public function setDifficulty(?int $difficulty): static
     {
         $this->difficulty = $difficulty;
 
@@ -100,7 +95,7 @@ class Task
         return $this->xp_reward;
     }
 
-    public function setXpReward(int $xp_reward): static
+    public function setXpReward(?int $xp_reward): static
     {
         $this->xp_reward = $xp_reward;
 
@@ -112,45 +107,33 @@ class Task
         return $this->recurrence;
     }
 
-    public function setRecurrence(string $recurrence): static
+    public function setRecurrence(?string $recurrence): static
     {
         $this->recurrence = $recurrence;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): static
+    public function setCreatedAt(?\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getCompletedAt(): ?\DateTimeInterface
+    public function getUser(): ?User
     {
-        return $this->completed_at;
+        return $this->user;
     }
 
-    public function setCompletedAt(\DateTimeInterface $completed_at): static
+    public function setUser(?User $user): static
     {
-        $this->completed_at = $completed_at;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(?User $userId): static
-    {
-        $this->userId = $userId;
+        $this->user = $user;
 
         return $this;
     }

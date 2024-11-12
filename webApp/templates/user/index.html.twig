@@ -15,6 +15,12 @@
                 <th>Username</th>
                 <th>Current_level</th>
                 <th>Current_xp</th>
+                <th>Profession</th>
+                <th>Strength</th>
+                <th>Intelligence</th>
+                <th>Constitution</th>
+                <th>Charisma</th>
+                <th>Xp_required</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -28,6 +34,12 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.currentLevel }}</td>
                 <td>{{ user.currentXp }}</td>
+                <td>{{ user.profession }}</td>
+                <td>{{ user.strength }}</td>
+                <td>{{ user.intelligence }}</td>
+                <td>{{ user.constitution }}</td>
+                <td>{{ user.charisma }}</td>
+                <td>{{ user.xpRequired }}</td>
                 <td>
                     <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
@@ -35,7 +47,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="14">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

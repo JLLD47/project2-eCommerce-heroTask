@@ -20,16 +20,16 @@ class Task
     private ?string $description = null;
 
     #[ORM\Column]
-    private ?bool $completed = null;
+    private ?bool $completed = false;
 
     #[ORM\Column(nullable: true)]
-    private ?int $difficulty = null;
+    private ?int $difficulty = 1;
 
     #[ORM\Column(nullable: true)]
     private ?int $xp_reward = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $recurrence = null;
+    private ?string $recurrence = 'Once';
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;

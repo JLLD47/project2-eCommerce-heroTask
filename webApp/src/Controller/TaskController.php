@@ -33,7 +33,7 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
         }
 
         return $this->render('task/new.html.twig', [
@@ -84,6 +84,15 @@ class TaskController extends AbstractController
     {
         $tasks = $taskRepository->findByUserId($id);
         return $this->render('task/user_tasks.html.twig', ['userTasks'=> $tasks]);
+    }
+    #[Route('/taskdone/{id}' , name: 'task_done' , methods: ['PATCH','POST'])]
+    public function taskDone($id, TaskRepository $taskRepository, EntityManagerInterface $entityManager): Response
+    {
+        $task= $taskRepository->find($id);
+        $task->setCompleted(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
     }
 
 }

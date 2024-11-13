@@ -7,65 +7,64 @@
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <th>Current_level</th>
-                <td>{{ user.currentLevel }}</td>
-            </tr>
-            <tr>
-                <th>Current_xp</th>
-                <td>{{ user.currentXp }}</td>
-            </tr>
-            <tr>
-                <th>Profession</th>
-                <td>{{ user.profession }}</td>
-            </tr>
-            <tr>
-                <th>Strength</th>
-                <td>{{ user.strength }}</td>
-            </tr>
-            <tr>
-                <th>Intelligence</th>
-                <td>{{ user.intelligence }}</td>
-            </tr>
-            <tr>
-                <th>Constitution</th>
-                <td>{{ user.constitution }}</td>
-            </tr>
-            <tr>
-                <th>Charisma</th>
-                <td>{{ user.charisma }}</td>
-            </tr>
-            <tr>
-                <th>Xp_required</th>
-                <td>{{ user.xpRequired }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Current_level</th>
+            <td>{{ user.currentLevel }}</td>
+        </tr>
+        <tr>
+            <th>Current_xp</th>
+            <td>{{ user.currentXp }}</td>
+        </tr>
+        <tr>
+            <th>Profession</th>
+            <td>{{ user.profession }}</td>
+        </tr>
+        <tr>
+            <th>Strength</th>
+            <td>{{ user.strength }}</td>
+        </tr>
+        <tr>
+            <th>Intelligence</th>
+            <td>{{ user.intelligence }}</td>
+        </tr>
+        <tr>
+            <th>Constitution</th>
+            <td>{{ user.constitution }}</td>
+        </tr>
+        <tr>
+            <th>Charisma</th>
+            <td>{{ user.charisma }}</td>
+        </tr>
+        <tr>
+            <th>Xp_required</th>
+            <td>{{ user.xpRequired }}</td>
+        </tr>
         </tbody>
     </table>
 
     {% if app.user.profession == 'Warrior' %}
-    <img id="loginImage"
-         src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
-         alt="login-image" class="mx-auto mb-8 w-96"/>
-        <h1>Quests:</h1>
-    {{ include('user/_delete_form.html.twig') }}
+        <img id="loginImage"
+             src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+        {{ include('user/_delete_form.html.twig') }}
     {% endif %}
     {% if app.user.profession == 'Mage' %}
         <img id="loginImage"
              src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
              alt="login-image" class="mx-auto mb-8 w-96"/>
-        <h1 class="mx-auto" >Quests:</h1>
+        <h1 class="mx-auto">Quests:</h1>
 
     {% endif %}
 
@@ -73,15 +72,43 @@
         <img id="loginImage"
              src="https://img.freepik.com/fotos-premium/assassin-rogue-traje-furtivo-negro-gris-hombre-teena-lindo-personaje-guerrero-ilustracion_1020495-735699.jpg"
              alt="login-image" class="mx-auto mb-8 w-96"/>
-        <h1>Quests:</h1>
     {% endif %}
-   {% block tasks %}
-       {% for task in userTasks %}
-           <div>{{ task.title }}</div>
-           <p>{{ task.description }}</p>
-       {% endfor %}
 
-       {% endblock %}
+    {% block tasks %}
+        <h1 class="text-center font-bold text-4xl"> Quests</h1>
+        {% for task in userTasks %}
+            {% if not task.completed %}
+                <a href="{{ path('app_task_edit', {'id': task.id}) }}">
+
+                    <div class="text-center font-bold">{{ task.title }}</div>
+                </a>
+                <p class="text-center text-bold mb-5">{{ task.description }}</p>
+                <form action="{{ path('task_done', {'id': task.id}) }}" method="POST" class="max-w-sm mx-auto">
+                <input type="hidden" name="_method" value="PATCH">
+                <button type="submit" class="text-center text-bold mb-5">
+                    Complete!
+                </button>
+            {% endif %}
+            </form>
+        {% endfor %}
+        <h1 class="text-center font-bold text-3xl"> Completed</h1>
+
+        {% for task in userTasks %}
+            {% if task.completed %}
+                <a href="{{ path('app_task_edit', {'id': task.id}) }}">
+
+                    <div class="text-center font-bold">{{ task.title }}</div>
+                </a>
+                <p class="text-center text-bold mb-5">{{ task.description }}</p>
+            {% endif %}
+            </form>
+        {% endfor %}
+
+        <button class="text-center text-bold mb-5" onclick="window.location.href='{{ path('app_task_new') }}'">Add
+            Quest!
+        </button>
+
+    {% endblock %}
 
     <a href="{{ path('app_user_index') }}">back to list</a>
 

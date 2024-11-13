@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,11 +17,12 @@ class TaskType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('completed')
-            ->add('difficulty')
-            ->add('xp_reward')
-            ->add('recurrence')
-            ->add('created_at')
+            ->add('difficulty' , choiceType::class, ['choices'=> [
+                'Easy' => '1',
+                'Medium' => '2',
+                'Hard' => '3',
+            ], 'multiple'=> false])
+            ->add('recurrence' , choiceType::class, ['choices'=> ['choices'=>['Once'=>'Once', 'Daily'=>'Daily', 'weekly'=>'Weekly', 'Monthly'=>'Monthly']]])
             ->add('user', EntityType::class, [
                 'class' => User::class,
 'choice_label' => 'id',

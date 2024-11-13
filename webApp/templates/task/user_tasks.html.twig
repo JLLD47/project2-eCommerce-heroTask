@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for task in userTasks %}
+        <div>{{ task.title }}</div>
+        <p>{{ task.description }}</p>
+    {% endfor %}
+
+{% endblock %}

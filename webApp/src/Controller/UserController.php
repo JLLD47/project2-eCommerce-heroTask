@@ -55,8 +55,10 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+        $userTasks = $user->getTasks()->toArray();
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'userTasks' => $userTasks
         ]);
     }
 
@@ -79,17 +81,17 @@ class UserController extends AbstractController
     }
 
 
-
-    #[Route('/profession', name: 'app_user_profession_choices', methods: ['POST','GET'])]
+    #[Route('/profession', name: 'app_user_profession_choices', methods: ['POST', 'GET'])]
     public function addProfession(Request $request, EntityManagerInterface $entityManager): Response
     {
         $profession = $request->get('profession');
-        $user= $this->getUser();
+        $user = $this->getUser();
         $user->setProfession($profession);
         $entityManager->persist($user);
         $entityManager->flush();
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_show', ['id' => $user->getId()]);
     }
+
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -100,4 +102,5 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

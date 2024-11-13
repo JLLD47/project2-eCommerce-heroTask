@@ -16,14 +16,6 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
                 <th>Username</th>
                 <td>{{ user.username }}</td>
             </tr>
@@ -62,9 +54,37 @@
         </tbody>
     </table>
 
+    {% if app.user.profession == 'Warrior' %}
+    <img id="loginImage"
+         src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
+         alt="login-image" class="mx-auto mb-8 w-96"/>
+        <h1>Quests:</h1>
+    {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
+    {% if app.user.profession == 'Mage' %}
+        <img id="loginImage"
+             src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+        <h1 class="mx-auto" >Quests:</h1>
+
+    {% endif %}
+
+    {% if app.user.profession == 'Rogue' %}
+        <img id="loginImage"
+             src="https://img.freepik.com/fotos-premium/assassin-rogue-traje-furtivo-negro-gris-hombre-teena-lindo-personaje-guerrero-ilustracion_1020495-735699.jpg"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+        <h1>Quests:</h1>
+    {% endif %}
+   {% block tasks %}
+       {% for task in userTasks %}
+           <div>{{ task.title }}</div>
+           <p>{{ task.description }}</p>
+       {% endfor %}
+
+       {% endblock %}
+
     <a href="{{ path('app_user_index') }}">back to list</a>
 
     <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
 
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

@@ -25,6 +25,12 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setCurrentLevel(1);
+            $user->setStrength(1);
+                $user->setIntelligence(1);
+                $user->setConstitution(1);
+                    $user->setCharisma(1);
+                    $user->setXpRequired(100);
+                    $user->setCurrentXp(0);
             $user->setRoles(['ROLE_USER']);
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -35,13 +41,16 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
+            // Authenticate the user
+            $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
             );
+
+            // Redirect to the desired route after successful registration and authentication
+            return $this->redirectToRoute('app_user_profession_choices');
         }
 
         return $this->render('registration/register.html.twig', [

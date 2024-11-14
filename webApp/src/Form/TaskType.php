@@ -17,16 +17,15 @@ class TaskType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('difficulty' , choiceType::class, ['choices'=> [
-                'Easy' => '1',
-                'Medium' => '2',
-                'Hard' => '3',
-            ], 'multiple'=> false])
-            ->add('recurrence' , choiceType::class, ['choices'=> ['choices'=>['Once'=>'Once', 'Daily'=>'Daily', 'weekly'=>'Weekly', 'Monthly'=>'Monthly']]])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-'choice_label' => 'id',
+            ->add('difficulty', choiceType::class, [
+                'choices' => [
+                    'Easy' => '1',
+                    'Medium' => '2',
+                    'Hard' => '3',
+                ],
+                'multiple' => false
             ])
+            ->add('recurrence', choiceType::class, ['choices' => ['choices' => ['Once' => 'Once', 'Daily' => 'Daily', 'weekly' => 'Weekly', 'Monthly' => 'Monthly']]])
         ;
     }
 

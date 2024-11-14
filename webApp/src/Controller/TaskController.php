@@ -30,6 +30,14 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($task->getDifficulty() ===1){
+                $task->setXpReward(15);
+            }elseif ($task->getDifficulty() ===2){
+                $task->setXpReward(25);
+            } else {
+                $task->setXpReward(40);
+            }
+            $task->setUser($this->getUser());
             $entityManager->persist($task);
             $entityManager->flush();
 
@@ -57,9 +65,10 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $task->setUser($this->getUser());
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
         }
 
         return $this->render('task/edit.html.twig', [
@@ -88,11 +97,21 @@ class TaskController extends AbstractController
     #[Route('/taskdone/{id}' , name: 'task_done' , methods: ['PATCH','POST'])]
     public function taskDone($id, TaskRepository $taskRepository, EntityManagerInterface $entityManager): Response
     {
+        $user=$this->getUser();
         $task= $taskRepository->find($id);
+
         $task->setCompleted(true);
+        $user->setCurrentXp($user->getCurrentXp() + $task->getXpReward());
+        if($user->getXpRequired() < $user->getCurrentXp()){
+            $user->setCurrentLevel($user->getCurrentLevel() + 1);
+            $user->setCurrentXp( $user->getCurrentXp() - $user->getXpRequired());
+        }
+
         $entityManager->flush();
 
         return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
     }
+
+
 
 }

@@ -37,6 +37,9 @@ class Task
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     private ?User $user = null;
 
+    #[ORM\OneToOne(mappedBy: 'task', cascade: ['persist', 'remove'])]
+    private ?TaskStats $taskStatid = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +137,28 @@ class Task
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTaskStatid(): ?TaskStats
+    {
+        return $this->taskStatid;
+    }
+
+    public function setTaskStatid(?TaskStats $taskStatid): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($taskStatid === null && $this->taskStatid !== null) {
+            $this->taskStatid->setTask(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($taskStatid !== null && $taskStatid->getTask() !== $this) {
+            $taskStatid->setTask($this);
+        }
+
+        $this->taskStatid = $taskStatid;
 
         return $this;
     }

@@ -26,6 +26,12 @@ class TaskType extends AbstractType
                 'multiple' => false
             ])
             ->add('recurrence', choiceType::class, ['choices' => ['choices' => ['Once' => 'Once', 'Daily' => 'Daily', 'weekly' => 'Weekly', 'Monthly' => 'Monthly']]])
+            ->add('type', ChoiceType::class, ['choices' => [
+                'Strength' => 'Strength',
+                'Intelligence' => 'Intelligence',
+                'Constitution' => 'Constitution',
+                'Charisma' => 'Charisma',
+            ]])
         ;
     }
 

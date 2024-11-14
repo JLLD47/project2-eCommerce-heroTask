@@ -1,0 +1,61 @@
+[1mdiff --git a/webApp/src/Entity/Task.php b/webApp/src/Entity/Task.php[m
+[1mindex 8bbf38f..4e9a135 100644[m
+[1m--- a/webApp/src/Entity/Task.php[m
+[1m+++ b/webApp/src/Entity/Task.php[m
+[36m@@ -40,6 +40,15 @@[m [mclass Task[m
+     #[ORM\OneToOne(mappedBy: 'task', cascade: ['persist', 'remove'])][m
+     private ?TaskStats $taskStatid = null;[m
+ [m
+[32m+[m[32m    #[ORM\Column(nullable: true)][m
+[32m+[m[32m    private ?int $strength_xprequired = null;[m
+[32m+[m
+[32m+[m[32m    #[ORM\Column(nullable: true)][m
+[32m+[m[32m    private ?int $intelligence_xprequired = null;[m
+[32m+[m
+[32m+[m[32m    #[ORM\Column(nullable: true)][m
+[32m+[m[32m    private ?int $constitution_xprequired = null;[m
+[32m+[m
+     public function getId(): ?int[m
+     {[m
+         return $this->id;[m
+[36m@@ -162,4 +171,40 @@[m [mclass Task[m
+ [m
+         return $this;[m
+     }[m
+[32m+[m
+[32m+[m[32m    public function getStrengthXprequired(): ?int[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return $this->strength_xprequired;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function setStrengthXprequired(?int $strength_xprequired): static[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $this->strength_xprequired = $strength_xprequired;[m
+[32m+[m
+[32m+[m[32m        return $this;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function getIntelligenceXprequired(): ?int[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return $this->intelligence_xprequired;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function setIntelligenceXprequired(?int $intelligence_xprequired): static[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $this->intelligence_xprequired = $intelligence_xprequired;[m
+[32m+[m
+[32m+[m[32m        return $this;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function getConstitutionXprequired(): ?int[m
+[32m+[m[32m    {[m
+[32m+[m[32m        return $this->constitution_xprequired;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public function setConstitutionXprequired(?int $constitution_xprequired): static[m
+[32m+[m[32m    {[m
+[32m+[m[32m        $this->constitution_xprequired = $constitution_xprequired;[m
+[32m+[m
+[32m+[m[32m        return $this;[m
+[32m+[m[32m    }[m
+ }[m

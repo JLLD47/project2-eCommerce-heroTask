@@ -61,6 +61,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'user')]
     private Collection $tasks;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $str_xp_rq = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $int_xp_rq = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $const_xp_rq = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $cha_xp_rq = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $str_current = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $int_current = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $const_current = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $cha_current = null;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
@@ -269,6 +293,102 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $task->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStrXpRq(): ?int
+    {
+        return $this->str_xp_rq;
+    }
+
+    public function setStrXpRq(?int $str_xp_rq): static
+    {
+        $this->str_xp_rq = $str_xp_rq;
+
+        return $this;
+    }
+
+    public function getIntXpRq(): ?int
+    {
+        return $this->int_xp_rq;
+    }
+
+    public function setIntXpRq(?int $int_xp_rq): static
+    {
+        $this->int_xp_rq = $int_xp_rq;
+
+        return $this;
+    }
+
+    public function getConstXpRq(): ?int
+    {
+        return $this->const_xp_rq;
+    }
+
+    public function setConstXpRq(?int $const_xp_rq): static
+    {
+        $this->const_xp_rq = $const_xp_rq;
+
+        return $this;
+    }
+
+    public function getChaXpRq(): ?int
+    {
+        return $this->cha_xp_rq;
+    }
+
+    public function setChaXpRq(?int $cha_xp_rq): static
+    {
+        $this->cha_xp_rq = $cha_xp_rq;
+
+        return $this;
+    }
+
+    public function getStrCurrent(): ?int
+    {
+        return $this->str_current;
+    }
+
+    public function setStrCurrent(?int $str_current): static
+    {
+        $this->str_current = $str_current;
+
+        return $this;
+    }
+
+    public function getIntCurrent(): ?int
+    {
+        return $this->int_current;
+    }
+
+    public function setIntCurrent(int $int_current): static
+    {
+        $this->int_current = $int_current;
+
+        return $this;
+    }
+
+    public function getConstCurrent(): ?int
+    {
+        return $this->const_current;
+    }
+
+    public function setConstCurrent(?int $const_current): static
+    {
+        $this->const_current = $const_current;
+
+        return $this;
+    }
+
+    public function getChaCurrent(): ?int
+    {
+        return $this->cha_current;
+    }
+
+    public function setChaCurrent(?int $cha_current): static
+    {
+        $this->cha_current = $cha_current;
 
         return $this;
     }

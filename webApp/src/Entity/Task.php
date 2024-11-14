@@ -40,10 +40,8 @@ class Task
     #[ORM\OneToOne(mappedBy: 'task', cascade: ['persist', 'remove'])]
     private ?TaskStats $taskStatid = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    #[ORM\Column(length: 25, nullable: true)]
+    private ?string $type = null;
 
     public function getTitle(): ?string
     {
@@ -161,5 +159,25 @@ class Task
         $this->taskStatid = $taskStatid;
 
         return $this;
+    }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
     }
 }

@@ -51,6 +51,11 @@
             <th>Xp_required</th>
             <td>{{ user.xpRequired }}</td>
         </tr>
+        <tr>
+            <th>Strength XP</th>
+            <td>{{ user.StrXpRq }}</td>
+        </tr>
+
         </tbody>
     </table>
 
@@ -62,10 +67,8 @@
     {% endif %}
     {% if app.user.profession == 'Mage' %}
         <img id="loginImage"
-             src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
+             src="https://png.pngtree.com/png-vector/20240601/ourmid/pngtree-necromancer-character-with-a-mischievous-png-image_12599219.png"
              alt="login-image" class="mx-auto mb-8 w-96"/>
-        <h1 class="mx-auto">Quests:</h1>
-
     {% endif %}
 
     {% if app.user.profession == 'Rogue' %}
@@ -75,39 +78,54 @@
     {% endif %}
 
     {% block tasks %}
-        <h1 class="text-center font-bold text-4xl"> Quests</h1>
-        {% for task in userTasks %}
-            {% if not task.completed %}
-                <a href="{{ path('app_task_edit', {'id': task.id}) }}">
+        <div class="container mx-auto max-w-lg mt-10 p-4 bg-gray-100 rounded-lg shadow-md">
+            <h1 class="text-center font-bold text-4xl text-blue-950 mb-8">Quests</h1>
 
-                    <div class="text-center font-bold">{{ task.title }}</div>
-                </a>
-                <p class="text-center text-bold mb-5">{{ task.description }}</p>
-                <form action="{{ path('task_done', {'id': task.id}) }}" method="POST" class="max-w-sm mx-auto">
-                <input type="hidden" name="_method" value="PATCH">
-                <button type="submit" class="text-center text-bold mb-5">
-                    Complete!
+            <div class="mb-8">
+                {% for task in userTasks %}
+                    {% if not task.completed %}
+                        <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                               class="block text-center font-bold text-blue-950 text-xl">
+                                {{ task.title }}
+                            </a>
+
+                            <p class="text-center text-gray-700 mt-2">{{ task.description }}</p>
+                            <form action="{{ path('task_done', {'id': task.id}) }}" method="POST"
+                                  class="text-center mt-4">
+                                <input type="hidden" name="_method" value="PATCH">
+                                <button type="submit"
+                                        class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">
+                                    Complete!
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="text-center mb-8">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded"
+                        onclick="window.location.href='{{ path('app_task_new') }}'">
+                    Add a New Quest!
                 </button>
-            {% endif %}
-            </form>
-        {% endfor %}
-        <h1 class="text-center font-bold text-3xl"> Completed</h1>
+            </div>
 
-        {% for task in userTasks %}
-            {% if task.completed %}
-                <a href="{{ path('app_task_edit', {'id': task.id}) }}">
-
-                    <div class="text-center font-bold">{{ task.title }}</div>
-                </a>
-                <p class="text-center text-bold mb-5">{{ task.description }}</p>
-            {% endif %}
-            </form>
-        {% endfor %}
-
-        <button class="text-center text-bold mb-5" onclick="window.location.href='{{ path('app_task_new') }}'">Add
-            Quest!
-        </button>
-
+            <h2 class="text-center font-bold text-3xl text-blue-950 mb-6">Finished:</h2>
+            <div>
+                {% for task in userTasks|reverse|slice(0,5) %}
+                    {% if task.completed %}
+                        <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                               class="block text-center font-bold text-blue-800 text-xl">
+                                {{ task.title }}
+                            </a>
+                            <p class="text-center text-gray-600 mt-2">{{ task.description }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     {% endblock %}
 
     <a href="{{ path('app_user_index') }}">back to list</a>

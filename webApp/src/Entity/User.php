@@ -85,9 +85,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $cha_current = null;
 
+    #[ORM\OneToMany(targetEntity: Achievements::class, mappedBy: 'user')]
+    private Collection $achievements;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -389,6 +393,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setChaCurrent(?int $cha_current): static
     {
         $this->cha_current = $cha_current;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Achievements>
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievements $achievement): static
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements->add($achievement);
+            $achievement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievements $achievement): static
+    {
+        if ($this->achievements->removeElement($achievement)) {
+            // set the owning side to null (unless already changed)
+            if ($achievement->getUser() === $this) {
+                $achievement->setUser(null);
+            }
+        }
 
         return $this;
     }

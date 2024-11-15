@@ -85,22 +85,37 @@
                 {% for task in userTasks %}
                     {% if not task.completed %}
                         <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                            <p class="text-center text-gray-700 mt-2">{{ task.type }}</p>
                             <a href="{{ path('app_task_edit', {'id': task.id}) }}"
                                class="block text-center font-bold text-blue-950 text-xl">
                                 {{ task.title }}
                             </a>
 
                             <p class="text-center text-gray-700 mt-2">{{ task.description }}</p>
-                            <form action="{{ path('task_done', {'id': task.id}) }}" method="POST"
-                                  class="text-center mt-4">
-                                <input type="hidden" name="_method" value="PATCH">
-                                <button type="submit"
-                                        class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded">
-                                    Complete!
-                                </button>
-                            </form>
-                        </div>
-                    {% endif %}
+                            <div class="flex justify-center space-x-4 mt-4">
+                                <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Complete!
+                                    </button>
+                                </form>
+                                <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Forfeit
+                                    </button>
+                                </form>
+                                <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Edit
+                                    </button>
+                                </form>
+                            </div>
+
+                            {% endif %}
                 {% endfor %}
             </div>
 

@@ -22,6 +22,12 @@ class Achievements
     #[ORM\ManyToOne(inversedBy: 'achievements')]
     private ?User $user = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $achieved = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +65,30 @@ class Achievements
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function isAchieved(): ?bool
+    {
+        return $this->achieved;
+    }
+
+    public function setAchieved(?bool $achieved): static
+    {
+        $this->achieved = $achieved;
 
         return $this;
     }

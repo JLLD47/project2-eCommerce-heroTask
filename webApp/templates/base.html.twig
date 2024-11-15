@@ -23,8 +23,8 @@
                 HeroTask... madafakaaa
             </p>
             {% if app.user %}
-               {#  <button onclick="window.location.href='{{ path('#') }}'"> Achievements</button>
-                <button onclick="window.location.href='{{ path('#') }}'">Settings</button>#}
+               <button onclick="window.location.href='{{ path('app_user_achievements') }}'" class="text-white"> Achievements</button>
+                {#  <button onclick="window.location.href='{{ path('#') }}'">Settings</button>#}
                 <button onclick="window.location.href='{{ path('app_logout') }}'" class="text-white">LogOut</button>
             {% endif %}
         </footer>

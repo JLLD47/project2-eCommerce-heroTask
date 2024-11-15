@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Achievements;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use App\Repository\UserRepository;
+use App\Service\TaskManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -98,60 +101,13 @@ class TaskController extends AbstractController
     }
 
     #[Route('/taskdone/{id}', name: 'task_done', methods: ['PATCH', 'POST'])]
-    public function taskDone($id, TaskRepository $taskRepository, EntityManagerInterface $entityManager): Response
+    public function taskDone($id, TaskRepository $taskRepository, EntityManagerInterface $entityManager, TaskManager $taskManager, UserRepository $userRepository): Response
     {
-        $user = $this->getUser();
+        $userId = $this->getUser()->getId();
+        $user = $userRepository->find($userId);
         $task = $taskRepository->find($id);
+        $taskManager->questDone($user, $task);
 
-        $task->setCompleted(true);
-
-        $taskType = $task->getType();
-        /* @var $user User */
-        switch ($taskType) {
-            case 'Strength':
-                $user->setStrCurrent($user->getStrCurrent() + $task->getXpReward());
-                if ($user->getStrCurrent() > $user->getStrXpRq()) {
-                    $user->setStrength($user->getStrength() + 1);
-                    $user->setStrCurrent($user->getStrCurrent() - $user->getStrXpRq());
-                    $user->setStrXpRq($user->getStrXpRq() * ($user->getStrength() * 0.5));
-                    $user->setCurrentXp($user->getCurrentXp() + 33);
-                }
-                break;
-            case 'Intelligence':
-                $user->setIntCurrent($user->getIntCurrent() + $task->getXpReward());
-                if ($user->getIntCurrent() > $user->getIntXpRq()) {
-                    $user->setIntelligence($user->getIntelligence() + 1);
-                    $user->setIntCurrent($user->getIntCurrent() - $user->getIntXpRq());
-                    $user->setIntXpRq($user->getIntXpRq() * $user->getIntelligence() * 0.5);
-                    $user->setCurrentXp($user->getCurrentXp() + 33);
-
-                }
-                break;
-            case 'Constitution':
-                $user->setConstCurrent($user->getConstCurrent() + $task->getXpReward());
-                if ($user->getConstCurrent() > $user->getConstXpRq()) {
-                    $user->setConstitution($user->getConstitution() + 1);
-                    $user->setConstCurrent($user->getConstCurrent() - $user->getConstXpRq());
-                    $user->setConstXpRq($user->getConstXpRq() * $user->getConstitution() * 0.5);
-                    $user->setCurrentXp($user->getCurrentXp() + 33);
-
-                }
-                break;
-            case 'Charisma':
-                $user->setChaCurrent($user->getChaCurrent() + $task->getXpReward());
-                if ($user->getChaCurrent() > $user->getChaXpRq()) {
-                    $user->setCharisma($user->getCharisma() + 1);
-                    $user->setChaCurrent($user->getChaCurrent() - $user->getChaXpRq());
-                    $user->setChaXpRq($user->getChaXpRq() * $user->getStrength() * 0.5);
-                    $user->setCurrentXp($user->getCurrentXp() + 33);
-
-                }
-                break;
-        }
-        if ($user->getCurrentXp() > $user->getXpRequired()) {
-            $user->setCurrentLevel($user->getCurrentLevel() + 1);
-            $user->setCurrentXp($user->getCurrentXp() - $user->getXpRequired());
-        }
 
         $entityManager->flush();
 

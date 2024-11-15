@@ -62,28 +62,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $tasks;
 
     #[ORM\Column(nullable: true)]
-    private ?int $str_xp_rq = null;
+    private ?int $str_xp_rq = 100;
 
     #[ORM\Column(nullable: true)]
-    private ?int $int_xp_rq = null;
+    private ?int $int_xp_rq = 100;
 
     #[ORM\Column(nullable: true)]
-    private ?int $const_xp_rq = null;
+    private ?int $const_xp_rq = 100;
 
     #[ORM\Column(nullable: true)]
-    private ?int $cha_xp_rq = null;
+    private ?int $cha_xp_rq = 100;
 
     #[ORM\Column(nullable: true)]
-    private ?int $str_current = null;
+    private ?int $str_current = 0;
 
     #[ORM\Column(nullable: true)]
-    private ?int $int_current = null;
+    private ?int $int_current = 0;
 
     #[ORM\Column(nullable: true)]
-    private ?int $const_current = null;
+    private ?int $const_current = 0;
 
     #[ORM\Column(nullable: true)]
-    private ?int $cha_current = null;
+    private ?int $cha_current = 0;
 
     #[ORM\OneToMany(targetEntity: Achievements::class, mappedBy: 'user')]
     private Collection $achievements;

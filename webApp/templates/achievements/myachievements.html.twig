@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1 class="text-4xl font-bold text-center my-8">The Trophy Room</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl">
+        {% for userAchievement in userAchievements %}
+            <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition duration-200">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ userAchievement.name }}</h2>
+                <p class="text-gray-600">{{ userAchievement.description }}</p>
+                <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                     class="w-10 object-contain mx-auto"
+                     alt="Trophy">
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

@@ -64,6 +64,7 @@ class TaskManager
     {
         if ($user->getCurrentXp() > $user->getXpRequired()) {
             $user->setCurrentLevel($user->getCurrentLevel() + 1);
+            $user->setCurrentXp($user->getCurrentXp() - 100);
 
             $achievementRepo = $this->entityManager->getRepository(Achievements::class);
             $levelAchievements = [

@@ -43,6 +43,9 @@ class Task
     #[ORM\Column(length: 25, nullable: true)]
     private ?string $type = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $failed = false;
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -160,6 +163,7 @@ class Task
 
         return $this;
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -176,8 +180,26 @@ class Task
 
         return $this;
     }
+
     public function __construct()
     {
         $this->created_at = new \DateTimeImmutable();
     }
+
+    public function isFailed(): ?bool
+    {
+        return $this->failed;
+    }
+
+    public function setFailed(?bool $failed): static
+    {
+        $this->failed = $failed;
+
+        return $this;
+    }
+
+
+
+
+
 }

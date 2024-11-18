@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Current_level</th>
+            <td>{{ user.currentLevel }}</td>
+        </tr>
+        <tr>
+            <th>Current_xp</th>
+            <td>{{ user.currentXp }}</td>
+        </tr>
+        <tr>
+            <th>Profession</th>
+            <td>{{ user.profession }}</td>
+        </tr>
+        <tr>
+            <th>Strength</th>
+            <td>{{ user.strength }}</td>
+        </tr>
+        <tr>
+            <th>Strength Current</th>
+            <td>{{ user.strCurrent }}</td>
+        </tr>
+        <tr>
+            <th>Intelligence</th>
+            <td>{{ user.intelligence }}</td>
+        </tr>
+        <tr>
+            <th>Charisma Current</th>
+            <td>{{ user.intCurrent }}</td>
+        </tr>
+        <tr>
+            <th>Constitution</th>
+            <td>{{ user.constitution }}</td>
+        </tr>
+        <tr>
+            <th>Charisma Current</th>
+            <td>{{ user.constCurrent }}</td>
+        </tr>
+        <tr>
+            <th>Charisma</th>
+            <td>{{ user.charisma }}</td>
+        </tr>
+        <tr>
+            <th>Charisma Current</th>
+            <td>{{ user.chaCurrent }}</td>
+        </tr>
+        <tr>
+            <th>Xp_required</th>
+            <td>{{ user.xpRequired }}</td>
+        </tr>
+        <tr>
+            <th>Strength XP</th>
+            <td>{{ user.StrXpRq }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    {% if app.user.profession == 'Warrior' %}
+        <img id="loginImage"
+             src="https://e7.pngegg.com/pngimages/326/398/png-clipart-viking-ships-cartoon-viking-warrior-s-cartoonist-fictional-character.png"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+        {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
+    {% if app.user.profession == 'Mage' %}
+        <img id="loginImage"
+             src="https://png.pngtree.com/png-vector/20240601/ourmid/pngtree-necromancer-character-with-a-mischievous-png-image_12599219.png"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+    {% endif %}
+
+    {% if app.user.profession == 'Rogue' %}
+        <img id="loginImage"
+             src="https://img.freepik.com/fotos-premium/assassin-rogue-traje-furtivo-negro-gris-hombre-teena-lindo-personaje-guerrero-ilustracion_1020495-735699.jpg"
+             alt="login-image" class="mx-auto mb-8 w-96"/>
+    {% endif %}
+
+    {% block tasks %}
+        <div class="container mx-auto max-w-lg mt-10 p-4 bg-gray-100 rounded-lg shadow-md">
+            <h1 class="text-center font-bold text-4xl text-blue-950 mb-8">Quests</h1>
+
+            <div class="mb-8">
+                {% for task in userTasks %}
+                    {% if not task.completed %}
+                        <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                            <p class="text-center text-gray-700 mt-2">{{ task.type }}</p>
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                               class="block text-center font-bold text-blue-950 text-xl">
+                                {{ task.title }}
+                            </a>
+
+                            <p class="text-center text-gray-700 mt-2">{{ task.description }}</p>
+                            <div class="flex justify-center space-x-4 mt-4">
+                                <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Complete!
+                                    </button>
+                                </form>
+                                <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Forfeit
+                                    </button>
+                                </form>
+                                <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
+                                    <input type="hidden" name="_method" value="PATCH">
+                                    <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                        Edit
+                                    </button>
+                                </form>
+                            </div>
+
+                            {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="text-center mb-8">
+                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded"
+                        onclick="window.location.href='{{ path('app_task_new') }}'">
+                    Add a New Quest!
+                </button>
+            </div>
+
+            <h2 class="text-center font-bold text-3xl text-blue-950 mb-6">Finished:</h2>
+            <div>
+                {% for task in userTasks|reverse|slice(0,5) %}
+                    {% if task.completed %}
+                        <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                               class="block text-center font-bold text-blue-800 text-xl">
+                                {{ task.title }}
+                            </a>
+                            <p class="text-center text-gray-600 mt-2">{{ task.description }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock %}
+
+    <a href="{{ path('app_user_index') }}">back to list</a>
+
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+{% endblock %}

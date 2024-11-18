@@ -28,6 +28,15 @@ class TaskRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findFailedTasks(\DateTime $date): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.completed = 0')
+            ->andWhere('u.created_at < :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Task[] Returns an array of Task objects

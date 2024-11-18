@@ -4,3 +4,11 @@ body {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face{
+    font-family: 'HeroesLegend';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../public/fonts/HeroesLegend.ttf');
+}
+

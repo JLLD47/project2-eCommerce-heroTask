@@ -45,15 +45,18 @@ class AchievementsController extends AbstractController
 
 
 #[Route('/myachievements', name: 'app_user_achievements', methods: ['GET'])]
-    public function myAchievements(): Response
+    public function myAchievements(AchievementsRepository $achievementsRepository): Response
     {
 
         $user = $this->getUser();
         $userAchievements = $user->getAchievements()->toArray();
+        $achievements = $achievementsRepository->findAll();
+
 
 
         return $this->render('achievements/myachievements.html.twig', [
             'userAchievements' => $userAchievements,
+            'achievements' =>   $achievements,
 
         ]);
     }

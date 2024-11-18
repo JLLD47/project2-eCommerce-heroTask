@@ -54,6 +54,14 @@ class TaskController extends AbstractController
             'form' => $form,
         ]);
     }
+    #[Route('/redo/{id}', name: 'app_task_redo', methods: ['GET'])]
+    public function redo($id , EntityManagerInterface $entityManager): Response
+    {
+        $task = $entityManager->getRepository(Task::class)->find($id);
+        $task->setCompleted(false);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
+    }
 
     #[Route('/{id}', name: 'app_task_show', methods: ['GET'])]
     public function show(Task $task): Response
@@ -93,7 +101,7 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('app_task_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/user/tasks/{id}', name: 'get_user_tasks', methods: ['GET'])]
+    #[Route('/user/task/{id}', name: 'get_user_tasks', methods: ['GET'])]
     public function getUserTasks(TaskRepository $taskRepository, $id): Response
     {
         $tasks = $taskRepository->findByUserId($id);
@@ -113,7 +121,6 @@ class TaskController extends AbstractController
 
         return $this->redirectToRoute('app_user_show', ['id' => $task->getUser()->getId()]);
     }
-
 
 }
 

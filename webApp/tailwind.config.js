@@ -6,7 +6,7 @@ module.exports = {
     extend: {
       colors: {
         orangePeel: '#FFA630',
-        teaGreen: '#D7E8BA',
+        teaGreen:  '#86522D',
         moonstone: '#4DA1A9',
         yInMnBlue: '#2E5077',
         tyrianPurple: '#611C35',

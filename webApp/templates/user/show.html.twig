@@ -1,61 +1,76 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="grid grid-cols-3 gap-4 h-[calc(100vh-124px)] ">
-        <!-- Sección Izquierda: Información del Usuario -->
-        <div class="rounded-lg">
-            <div class="p-4 bg-tyrian-purple text-white">
-                <div class="mb-4 font-bold flex items-center justify-center font-H text-2xl">{{ user.username }} </div>
-                <div class="mb-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-[calc(100vh-124px)] ">
+        <div class="relative rounded-lg overflow-y-auto flex flex-col h-full">
+            <img src="{{ asset('images/profileStats/scroll.png') }}"
+                 class="absolute top-0 left-0 w-full h-full object-cover z-0 pt-9 pl-2.5" alt="Scroll background">
+
+            <div class="p-14 bg-tyrian-purple text-white relative z-10 flex-1">
+                <div class="mb-4 font-bold flex items-center justify-center font-HeroesLegend text-2xl">{{ user.username }}</div>
+                <div class="relative mb-4">
                     {% if app.user.profession == 'Warrior' %}
-                        <img id="loginImage"
-                             src="{{ asset('images/warriorCHAR.png') }}"
-                             alt="Warrior Image" class="h-80 mx-auto max-w-full"/>
+                        <img id="loginImage" src="{{ asset('images/warriorCHAR.png') }}" alt="Warrior Image"
+                             class="h-72 mx-auto max-w-full"/>
                     {% elseif app.user.profession == 'Mage' %}
-                        <img id="loginImage"
-                             src="{{ asset('images/mageCHAR.png') }}"
-                             alt="Mage Image" class="h-80 mx-auto max-w-full"/>
+                        <img id="loginImage" src="{{ asset('images/mageCHAR.png') }}" alt="Mage Image"
+                             class="h-72 mx-auto max-w-full"/>
                     {% elseif app.user.profession == 'Rogue' %}
-                        <img id="loginImage"
-                             src="{{ asset('images/rogueCHAR.png') }}"
-                             alt="Rogue Image" class="h-80 mx-auto max-w-full"/>
+                        <img id="loginImage" src="{{ asset('images/rogueCHAR.png') }}" alt="Rogue Image"
+                             class="h-96 mx-auto max-w-full"/>
                     {% endif %}
+
+                    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 z-50 text-center">
+                        <img src="" id="levelImage" alt="" class="h-20 ml-80 mb-0 "/>
+                        <div class="text-lg hidden font-bold bg-black/50 text-white rounded-md px-2 py-1 inline-block">
+                            Level: {{ user.CurrentLevel }}
+                        </div>
+                    </div>
                 </div>
                 <div class="space-y-2">
-                    <span class="hidden">{{ user.CurrentXp }}</span>
-                    <img src="" id="levelUp" alt="">
-                    <div>LEVEL: {{ user.CurrentLevel }}</div>
+                    <span id="level" class="hidden ">{{ user.CurrentXp }}</span>
 
-                    <div>
-                        STRENGTH: {{ user.strength }}
+                    <!-- Barra de progreso (Strength) -->
+                    <div class="relative">
+                        <img src="{{ asset('images/profileStats/strengthProfile.png') }}"
+                             class="h-16 relative z-10 -mb-4" alt="strength banner">
                         <span id="strength-required" class="hidden">{{ user.StrXpRq }}</span>
                         <span id="strength-current" class="hidden">{{ user.StrCurrent }}</span>
-                        <div class="progress-bar h-8 bg-gray-300  rounded-full">
-                            <div class="progress h-8 bg-blue-600  rounded-full" id="strength-progress"></div>
+                        <div class="progress-bar h-6 bg-gray-300 rounded-full">
+                            <div class="progress h-6 bg-blue-600 rounded-full" id="strength-progress"></div>
                         </div>
                     </div>
-                    <div>
-                        INTELLIGENCE: {{ user.intelligence }}
+
+                    <!-- Barra de progreso (Intelligence) -->
+                    <div class="relative">
+                        <img src="{{ asset('images/profileStats/intelligenceProfile.png') }}"
+                             class="h-16 relative z-10 -mb-4" alt="intelligence banner">
                         <span id="intelligence-required" class="hidden">{{ user.IntXpRq }}</span>
                         <span id="intelligence-current" class="hidden">{{ user.IntCurrent }}</span>
-                        <div class="progress-bar h-8 bg-gray-300  rounded-full">
-                            <div class="progress h-8 bg-blue-600  rounded-full" id="intelligence-progress"></div>
+                        <div class="progress-bar h-6 bg-gray-300 rounded-full">
+                            <div class="progress h-6 bg-blue-600 rounded-full" id="intelligence-progress"></div>
                         </div>
                     </div>
-                    <div>
-                        CONSTITUTION: {{ user.constitution }}
-                        <span id="constitution-required" class="hidden"> {{ user.ConstXpRq }}</span>
+
+                    <!-- Barra de progreso (Constitution) -->
+                    <div class="relative">
+                        <img src="{{ asset('images/profileStats/constitutionProfile.png') }}"
+                             class="h-16 relative z-10 -mb-4" alt="constitution banner">
+                        <span id="constitution-required" class="hidden">{{ user.ConstXpRq }}</span>
                         <span id="constitution-current" class="hidden">{{ user.ConstCurrent }}</span>
-                        <div class="progress-bar h-8 bg-gray-300 rounded-full">
-                            <div class="progress h-8 bg-blue-600  rounded-full" id="constitution-progress"></div>
+                        <div class="progress-bar h-6 bg-gray-300 rounded-full">
+                            <div class="progress h-6 bg-blue-600 rounded-full" id="constitution-progress"></div>
                         </div>
                     </div>
-                    <div>
-                        CHARISMA: {{ user.charisma }}
+
+                    <!-- Barra de progreso (Charisma) -->
+                    <div class="relative">
+                        <img src="{{ asset('images/profileStats/charismaProfile.png') }}"
+                             class="h-16 relative z-10 -mb-4" alt="charisma banner">
                         <span id="charisma-required" class="hidden">{{ user.ChaXpRq }}</span>
                         <span id="charisma-current" class="hidden">{{ user.ChaCurrent }}</span>
-                        <div class="progress-bar h-8 bg-gray-300 rounded-full">
-                            <div class="progress h-8 bg-blue-600  rounded-full" id="charisma-progress"></div>
+                        <div class="progress-bar h-6 bg-gray-300 rounded-full">
+                            <div class="progress h-6 bg-blue-600 rounded-full" id="charisma-progress"></div>
                         </div>
                     </div>
                 </div>
@@ -63,72 +78,78 @@
         </div>
 
         <!-- Sección Central: Tareas Incompletas -->
-        <div class="p-4 bg-moonstone text-white h-[calc(100vh-124px)] rounded-lg overflow-y-scroll">
-            <div class="text-center mb-8">
-                <button class="bg-orangePeel mb-8 text-black  hover:bg-tyrianPurple hover:text-white font-bold py-2 px-6 rounded"
-                        onclick="window.location.href='{{ path('app_task_new') }}'">
-                    Add a New Quest!
-                </button>
-                <div class="flex items-center justify-center mb-4">
-                    <img src="{{ asset('/images/QQuest.png') }}" class="h-11 mr-2"/>
-                    <h2 class="text-lg font-bold">Quests</h2>
+        <div class="relative rounded-lg overflow-y-auto flex flex-col h-full">
+            <img src="{{ asset('images/profileStats/scroll.png') }}"
+                 class="absolute top-0 left-0 w-full h-full object-cover z-0 pt-9 pl-2.5" alt="Scroll background">
+
+            <div class="p-4  text-white relative z-10 flex-1">
+                <div class="text-center mb-8">
+                    <button class="bg-orangePeel border-2 border-black mb-8 text-black hover:bg-tyrianPurple hover:text-white font-bold mt-12 py-2 px-6 rounded-l"
+                            onclick="window.location.href='{{ path('app_task_new') }}'">
+                        Add a New Quest!
+                    </button>
+                    <div class="flex items-center justify-center mb-4">
+                        <img src="{{ asset('/images/QQuest.png') }}" class="h-11 mr-2"/>
+                        <h2 class="text-lg font-bold">Quests</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="space-y-4">
-                {% for task in userTasks %}
-                    {% if not task.completed and not task.failed  %}
-                        <div class="mb-6 p-4 bg-white rounded-lg shadow">
-                            <!-- Tipo de tarea -->
-                            <p class="stat hidden text-center text-gray-700 mt-2">{{ task.type }}</p>
-                            <img src="" class="statImage h-14 mx-auto">
-                            <!-- Título de la tarea con enlace -->
-                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
-                               class="block text-center font-bold text-blue-950 text-xl">
-                                {{ task.title }}
-                            </a>
+                <div class="space-y-4">
+                    {% for task in userTasks %}
+                        {% if not task.completed and not task.failed %}
+                            <div class="mb-6 p-4 bg-white rounded-lg shadow">
+                                <!-- Tipo de tarea -->
+                                <p class="stat hidden text-center text-gray-700 mt-2">{{ task.type }}</p>
+                                <img src="" class="statImage h-14 mx-auto">
+                                <!-- Título de la tarea con enlace -->
+                                <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                                   class="block text-center font-bold text-blue-950 text-xl">
+                                    {{ task.title }}
+                                </a>
 
-                            <!-- Descripción de la tarea -->
-                            <p class="text-center text-gray-700 mt-2">{{ task.description }}</p>
+                                <!-- Descripción de la tarea -->
+                                <p class="text-center text-gray-700 mt-2">{{ task.description }}</p>
 
-                            <!-- Botones de acción -->
-                            <div class="flex justify-center space-x-4 mt-4">
-                                <!-- Botón: Completar -->
-                                <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
-                                    <input type="hidden" name="_method" value="PATCH">
-                                    <button type="submit"
-                                            class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
-                                        Complete!
-                                    </button>
-                                </form>
+                                <!-- Botones de acción -->
+                                <div class="flex justify-center space-x-4 mt-4">
+                                    <!-- Botón: Completar -->
+                                    <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
+                                        <input type="hidden" name="_method" value="PATCH">
+                                        <button type="submit"
+                                                class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                            Complete!
+                                        </button>
+                                    </form>
 
-                                <!-- Botón: Abandonar -->
-                                <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
-                                    <button type="submit"
-                                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-32">
-                                        Forfeit
-                                    </button>
-                                </form>
+                                    <!-- Botón: Abandonar -->
+                                    <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
+                                        <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-32">
+                                            Forfeit
+                                        </button>
+                                    </form>
 
-                                <!-- Botón: Editar -->
-                                <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
-                                    <input type="hidden" name="_method" value="PATCH">
-                                    <button type="submit"
-                                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32">
-                                        Edit
-                                    </button>
-                                </form>
+                                    <!-- Botón: Editar -->
+                                    <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
+                                        <input type="hidden" name="_method" value="PATCH">
+                                        <button type="submit"
+                                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32">
+                                            Edit
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
 
+
         <!-- Sección Derecha: Tareas Completadas y Fallidas -->
-        <div class="p-4 bg-tea-green">
+        <div class="p-4 bg-tea-green rounded-lg h-full overflow-y-auto">
             <div class="grid grid-rows-2 gap-4 h-full">
                 <!-- Bloque Superior: Completadas -->
-                <div class="bg-green-300 p-4 rounded">
+                <div class="bg-green-300 p-4 rounded overflow-y-auto">
                     <div class="flex items-center justify-center mb-4">
                         <img src="{{ asset('/images/CQuest.png') }}" class="h-11 mr-2"/>
                         <h2 class="text-lg text-white font-bold">Completed</h2>
@@ -153,7 +174,7 @@
                 </div>
 
                 <!-- Bloque Inferior: Fallidas -->
-                <div class="bg-red-300 p-4 rounded">
+                <div class="bg-red-300 p-4 rounded overflow-y-auto">
                     <div class="flex items-center justify-center mb-4">
                         <img src="{{ asset('/images/FQuest.png') }}" class="h-11 mr-2"/>
                         <h2 class="text-lg text-white font-bold">Failed</h2>

@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const statElements = document.querySelectorAll('.stat'); // Obtiene todos los .stat
-    const statImages = document.querySelectorAll('.statImage'); // Obtiene todas las .statImage
+    const statElements = document.querySelectorAll('.stat');
+    const statImages = document.querySelectorAll('.statImage');
+    const levelImage = document.getElementById('levelImage')
+    const currentXp = document.getElementById('level').innerText;
+
 
     // Función para calcular el progreso
     function calculateProgress(currentXp, requiredXp) {
@@ -19,7 +22,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Función para asignar imágenes según el tipo de estadística
+    function imageLevel() {
+        if (currentXp <= 10) {
+            levelImage.src = '/images/lvlup0.png'
+        } else if (currentXp <= 20) {
+            levelImage.src = '/images/lvlup20.png'
+        } else if (currentXp <= 40) {
+            levelImage.src = '/images/lvlup40.png';
+        } else if (currentXp <= 60) {
+            levelImage.src = '/images/lvlup60.png';
+        } else {
+            levelImage.src = '/images/lvlup60.png';
+        }
+
+    }
+
     function setStatImages() {
         statElements.forEach((statElement, index) => {
             const stat = statElement.innerText;
@@ -40,9 +57,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     break;
             }
         });
+
+
     }
 
-    // Llama a las funciones necesarias
+    imageLevel();
     setStatImages();
     updateProgressBar();
 });

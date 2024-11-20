@@ -1,49 +1,81 @@
 {% extends 'base.html.twig' %}
+
+
 {% block header %}
 
     <header class="flex items-center bg-yInMnBlue rounded-b-lg h-20 shadow p-4">
         <div class="flex-1 flex justify-center">
             <img src="{{ asset('images/HeroTaskBanner.png') }}" class="h-44 ">
         </div>
-            <div class="flex space-x-4">
-                <button onclick="window.location.href='{{ path('app_user_show' , {'id': app.user.id }) }}'"
-                        class="bg-orangePeel text-white font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
-                    Go Back!
-                </button>
-                <button onclick="window.location.href='{{ path('app_logout') }}'"
-                        class="bg-orangePeel text-white font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
-                    LogOut
-                </button>
-            </div>
+        <div class="flex space-x-4">
+            <button onclick="window.location.href='{{ path('app_user_show' , {'id': app.user.id }) }}'"
+                    class="bg-orangePeel text-black font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
+                Go Back!
+            </button>
+            <button onclick="window.location.href='{{ path('app_logout') }}'"
+                    class="bg-orangePeel text-black font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
+                LogOut
+            </button>
+        </div>
     </header>
 
 
 {% endblock %}
+
 {% block body %}
-    <h1 class="text-4xl font-bold text-center my-8">The Trophy Room</h1>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl">
-        {% for userAchievement in userAchievements %}
-            <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition duration-200">
-                <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ userAchievement.name }}</h2>
-                <p class="text-gray-600">{{ userAchievement.description }}</p>
-                <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
-                     class="w-10 object-contain mx-auto"
-                     alt="Trophy">
-            </div>
-        {% endfor %}
-        <div>
-            All achievements
-            {% for achievement in achievements %}
-                <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200 hover:shadow-lg transition duration-200">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">{{ achievement.name }}</h2>
-                    <p class="text-gray-600">{{ achievement.description }}</p>
-                    <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
-                         class="w-10 object-contain mx-auto"
-                         alt="Trophy">
-                </div>
-            {% endfor %}
+    <div class="h-full py-8 bg-[url('/images/backgroundtroph.jpeg')] bg-cover bg-center">
+        <div class="flex flex-col items-center justify-center mb-8">
+            <img src="{{ asset('/images/achievements/trophyRoom.png') }}" class="w-3/5">
+            <img src="{{ asset('/images/achievements/trophyAchieved.png') }}" class="w-80">
 
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl px-4">
+            {% for userAchievement in userAchievements %}
+                <div class="  p-6 hover:shadow-xl transition duration-200 transform hover:scale-105 bg-[url('/images/tablon.png')] bg-cover bg-center">
+                    <div class="flex justify-center mb-4">
+                        <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                             class="w-16 h-16 object-contain"
+                             alt="Trophy">
+                    </div>
+                    <div class="flex items-center justify-center gap-2">
+                        <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                             class="w-8 h-8 object-contain mr-0.5"
+                             alt="Trophy">
+                        <h2 class="text-lg font-bold text-gray-900 text-center">{{ userAchievement.name }}</h2>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4 text-center">{{ userAchievement.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="h-full py-8">
+            <div class="flex flex-col items-center justify-center mb-8">
+                <img src="{{ asset('/images/achievements/trophyAll.png') }}" class="w-80">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl px-4">
+                {% for achievement in allAchievements %}
+                    <div class="bg-orangePeel shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-200 transform hover:scale-105">
+                        <!-- Imagen encima del título -->
+                        <div class="flex justify-center mb-4">
+                            <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                                 class="w-16 h-16 object-contain"
+                                 alt="Trophy">
+                        </div>
+                        <!-- Título con imagen al lado -->
+                        <div class="flex items-center justify-center gap-2">
+                            <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                                 class="w-8 h-8 object-contain mr-0.5"
+                                 alt="Trophy">
+                            <h2 class="text-lg font-bold text-gray-900 text-center">{{ achievement.name }}</h2>
+                        </div>
+                        <!-- Descripción -->
+                        <p class="text-sm text-gray-600 mt-4 text-center">{{ achievement.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
     </div>
+
 {% endblock %}

@@ -10,13 +10,13 @@
                 <div class="mb-4 font-bold flex items-center justify-center font-HeroesLegend text-2xl">{{ user.username }}</div>
                 <div class="relative mb-4">
                     {% if app.user.profession == 'Warrior' %}
-                        <img id="loginImage" src="{{ asset('images/warriorCHAR.png') }}" alt="Warrior Image"
+                        <img id="loginImage" src="{{ asset('/images/characters/warriorCHAR.png') }}" alt="Warrior Image"
                              class="h-72 mx-auto max-w-full"/>
                     {% elseif app.user.profession == 'Mage' %}
-                        <img id="loginImage" src="{{ asset('images/mageCHAR.png') }}" alt="Mage Image"
+                        <img id="loginImage" src="{{ asset('/images/characters/mageCHAR.png') }}" alt="Mage Image"
                              class="h-72 mx-auto max-w-full"/>
                     {% elseif app.user.profession == 'Rogue' %}
-                        <img id="loginImage" src="{{ asset('images/rogueCHAR.png') }}" alt="Rogue Image"
+                        <img id="loginImage" src="{{ asset('/images/characters/rogueCHAR.png') }}" alt="Rogue Image"
                              class="h-96 mx-auto max-w-full"/>
                     {% endif %}
 
@@ -33,7 +33,7 @@
                     <!-- Barra de progreso (Strength) -->
                     <div class="relative">
                         <img src="{{ asset('images/profileStats/strengthProfile.png') }}"
-                             class="h-16 relative z-10 -mb-4" alt="strength banner">
+                             class="h-20 relative z-10 -mb-4" alt="strength banner">
                         <span id="strength-required" class="hidden">{{ user.StrXpRq }}</span>
                         <span id="strength-current" class="hidden">{{ user.StrCurrent }}</span>
                         <div class="progress-bar h-6 bg-gray-300 rounded-full">

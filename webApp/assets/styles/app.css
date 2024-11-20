@@ -1,5 +1,5 @@
 body {
-    background-color:  #CC9666 ;
+    /*background-color:  #CC9666 ;*/
     background-image: url("../../public/images/background.jpg") ;
 }
 @tailwind base;
@@ -13,3 +13,8 @@ body {
     src: url('../../public/fonts/HeroesLegend.ttf');
 }
 
+.bangers-regular {
+    font-family: "Bangers", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}

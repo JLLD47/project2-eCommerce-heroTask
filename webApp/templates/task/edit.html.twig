@@ -3,14 +3,77 @@
 {% block title %}Edit Task{% endblock %}
 
 {% block body %}
-    <h1>Edit Task</h1>
 
 
-
-
-    {{ include('task/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_user_show' , {'id': app.user.id}) }}">I'm not ready yet!</a>
-
-    {{ include('task/_delete_form.html.twig') }}
+<!-- Modal Form Container -->
+<div id="editTaskModal" class="h-[calc(100vh-44px)] flex items-center justify-center bg-[url('/images/background.webp')] opacity-90 bg-cover bg-center ">
+    <div class="relative p-4 w-full max-w-2xl">
+        <!-- Modal content -->
+        <div class="bg-[#967969] border-4 border-black relative p-4 rounded-t-full shadow bg-sm:p-6">
+            <!-- Modal header -->
+            <div class="relative flex justify-center items-center mt-4 pb-4 mb-4 rounded-t sm:mb-5">
+                <img src="{{ asset('/images/form/newQuestForm.png') }}" class="h-32">
+                <button type="button"
+                        onclick="window.location.href='{{ path('app_user_show' , {'id': app.user.id }) }}'"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex items-center absolute top-0 right-0 ml-1 -mt-5"
+                        data-modal-toggle="editTaskModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            {{ form_start(form) }}
+            <!-- Title -->
+            <div class="pl-6 pr-6 pb-4">
+                {{ form_row(form.title, {
+                    'label': '<img src="/images/form/formTitle.png" alt="Title" class="inline h-12">',
+                    'label_html': true,
+                    'attr': {'class': 'bg-gray-50 border-4 border-black text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 mt-4', 'placeholder': 'Task title'}
+                }) }}
+            </div>
+            <!-- Selects -->
+            <div class="pl-6 pr-6 pb-4 grid gap-8 mt-4 sm:grid-cols-2">
+                <div>
+                    {{ form_row(form.type, {
+                        'label': '<img src="/images/form/formType.png" alt="Type" class="inline h-12">',
+                        'label_html': true,
+                        'label_attr': {'class': 'text-white'},
+                        'attr': {'class': 'border-4 border-black mt-4 bg-white text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
+                    }) }}
+                </div>
+                <div>
+                    {{ form_row(form.difficulty, {
+                        'label': '<img src="/images/form/formDiff.png" alt="Difficulty" class="inline h-12">',
+                        'label_html': true,
+                        'label_attr': {'class': 'text-white'},
+                        'attr': {'class': 'mt-4 bg-gray-50 border-4 border-black text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
+                    }) }}
+                </div>
+            </div>
+            <!-- Description -->
+            <div class="ml-2 mt-4 pl-4 pr-6 pb-4">
+                {{ form_row(form.description, {
+                    'label': '<img src="/images/form/formDescr.png" alt="Description" class="inline h-16 ml-4">',
+                    'label_html': true,
+                    'label_attr': {'class': 'text-white'},
+                    'attr': {'class': 'mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-4 border-black focus:ring-primary-500 focus:border-primary-500 h-32', 'rows': '10', 'placeholder': 'Enter task details'}
+                }) }}
+            </div>
+            <!-- Submit Button -->
+            <div class="flex justify-center mt-6 ">
+                <button type="submit"
+                        class="text-white inline-flex items-center bg-orangePeel hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FFFFFF/sword.png" class="mr-1.5" alt="sword"/>
+                    Update Task!
+                </button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
 {% endblock %}

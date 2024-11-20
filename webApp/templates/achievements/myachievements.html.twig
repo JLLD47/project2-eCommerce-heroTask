@@ -9,11 +9,11 @@
         </div>
         <div class="flex space-x-4">
             <button onclick="window.location.href='{{ path('app_user_show' , {'id': app.user.id }) }}'"
-                    class="bg-orangePeel text-black font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
+                    class="bg-orangePeel text-black font-bold py-2 px-4 text-2xl bangers-regular  rounded-lg hover:bg-tyrianPurple transition">
                 Go Back!
             </button>
             <button onclick="window.location.href='{{ path('app_logout') }}'"
-                    class="bg-orangePeel text-black font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
+                    class="bg-orangePeel text-black text-2xl bangers-regular  font-bold py-2 px-4 rounded-lg hover:bg-tyrianPurple transition">
                 LogOut
             </button>
         </div>
@@ -23,17 +23,17 @@
 {% endblock %}
 
 {% block body %}
-    <div class="h-full py-8 bg-[url('/images/backgroundtroph.jpeg')] bg-cover bg-center">
+    <div class="h-full py-8 bg-[url('/images/backgroundtrophy2.jpeg')] bg-cover bg-center">
         <div class="flex flex-col items-center justify-center mb-8">
             <img src="{{ asset('/images/achievements/trophyRoom.png') }}" class="w-3/5">
             <img src="{{ asset('/images/achievements/trophyAchieved.png') }}" class="w-80">
 
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto max-w-7xl">
             {% for userAchievement in userAchievements %}
-                <div class="  p-6 hover:shadow-xl transition duration-200 transform hover:scale-105 bg-[url('/images/tablon.png')] bg-cover bg-center">
-                    <div class="flex justify-center mb-4">
+                <div class="mt-[10%]  h-80 w-[400px] p-6 hover:shadow-xl transition duration-200 transform hover:scale-105 bg-[url('/images/tablon.png')] bg-cover">
+                    <div class="flex justify-center p-12">
                         <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
                              class="w-16 h-16 object-contain"
                              alt="Trophy">
@@ -42,7 +42,7 @@
                         <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
                              class="w-8 h-8 object-contain mr-0.5"
                              alt="Trophy">
-                        <h2 class="text-lg font-bold text-gray-900 text-center">{{ userAchievement.name }}</h2>
+                        <h2 class="text-2xl font-bold text-gray-900 text-center bangers-regular ">{{ userAchievement.name }}</h2>
                     </div>
                     <p class="text-sm text-gray-600 mt-4 text-center">{{ userAchievement.description }}</p>
                 </div>
@@ -52,25 +52,24 @@
             <div class="flex flex-col items-center justify-center mb-8">
                 <img src="{{ asset('/images/achievements/trophyAll.png') }}" class="w-80">
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-6xl px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mx-auto max-w-7xl px-4">
                 {% for achievement in allAchievements %}
-                    <div class="bg-orangePeel shadow-lg rounded-lg p-6 hover:shadow-xl transition duration-200 transform hover:scale-105">
-                        <!-- Imagen encima del título -->
-                        <div class="flex justify-center mb-4">
-                            <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
-                                 class="w-16 h-16 object-contain"
-                                 alt="Trophy">
+                    {% if not achievement.achieved %}
+                        <div class="mt-[10%]  h-80 w-[400px] p-6 hover:shadow-xl transition duration-200 transform hover:scale-105 bg-[url('/images/tablon.png')] bg-cover">
+                            <div class="flex justify-center p-12">
+                                <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                                     class="w-16 h-16 object-contain"
+                                     alt="Trophy">
+                            </div>
+                            <div class="flex items-center justify-center gap-2">
+                                <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
+                                     class="w-8 h-8 object-contain mr-0.5"
+                                     alt="Trophy">
+                                <h2 class="text-lg font-bold text-gray-900 text-center">{{ achievement.name }}</h2>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-4 text-center">{{ achievement.description }}</p>
                         </div>
-                        <!-- Título con imagen al lado -->
-                        <div class="flex items-center justify-center gap-2">
-                            <img src="https://e7.pngegg.com/pngimages/596/848/png-clipart-blood-bowl-trophy-award-fantasy-football-trophy-sport-video-game.png"
-                                 class="w-8 h-8 object-contain mr-0.5"
-                                 alt="Trophy">
-                            <h2 class="text-lg font-bold text-gray-900 text-center">{{ achievement.name }}</h2>
-                        </div>
-                        <!-- Descripción -->
-                        <p class="text-sm text-gray-600 mt-4 text-center">{{ achievement.description }}</p>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

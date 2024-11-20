@@ -1,173 +1,125 @@
 {% extends 'base.html.twig' %}
 
-
 {% block header %}{% endblock %}
 {% block body %}
 
-    <section class="dark:bg-gray-900">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+    <section class="bg-yInMnBlue">
+        <div class=" px-4 mx-auto max-w-screen-xl lg:px-6">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
-                <img src="{{ asset('images/chooseCHAR.png') }}" class="mb-4 text-4xl tracking-tight">
-                <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">Each profession brings unique
-                    skills and abilities. Choose wisely to shape your adventure!</p>
+                <img src="{{ asset('images/chooseCHAR.png') }}" alt="Choose Character" class="mb-4">
+                <p class="mb-5 font-light text-gray-500 sm:text-xl dark:text-gray-400">
+                    Each profession brings unique skills and abilities. Choose wisely to shape your adventure!
+                </p>
             </div>
             <div class="space-y-8 lg:grid lg:grid-cols-3 sm:gap-6 xl:gap-10 lg:space-y-0">
-                <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                    <h3 class="mb-4 text-2xl font-semibold">Warrior</h3>
-                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">"Discipline Forges Victory"</p>
+                <!-- Warrior Card -->
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-gray-300 rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8">
+                    <h3 class="mb-4 text-3xl font-semibold bangers-regular">Warrior</h3>
+                    <p class="font-light text-gray-500 sm:text-lg">"Discipline Forges Victory"</p>
                     <div class="flex justify-center items-baseline my-8">
-                        <img id="loginImage"
-                             src="{{ asset('images/warriorCHAR.png') }}"
-                             alt="login-image" class="mx-auto mb-8 w-96"/>
-
-                        </img>
-
+                        <img src="{{ asset('images/warriorCHAR.png') }}" alt="Warrior" class="mx-auto mb-8 w-96">
                     </div>
-                    <!-- List -->
                     <ul role="list" class="mb-8 space-y-4 text-left">
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span>Strength forged in every challenge.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>Stand unyielding in the face of adversity.</span>
+                            <span>Stand with unbroken spirit.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span>True power lies in courage.</span>
                         </li>
                     </ul>
-                    <form method="POST" action='{{ path('app_user_profession_choices' , { 'profession': 'Warrior'}) }}'>
-
-                        <button href="#"
-                                class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">
-                            Choose
-                            the Warrior!
+                    <form method="POST" action="{{ path('app_user_profession_choices', { 'profession': 'Warrior' }) }}">
+                        <button type="submit"
+                                class="text-black bg-orangePeel hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-xl bangers-regular  px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                            Choose the Warrior!
                         </button>
                     </form>
                 </div>
-                <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                    <h3 class="mb-4 text-2xl font-semibold">Mage</h3>
-                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">"Knowledge is Power"</p>
+                <!-- Mage Card -->
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8">
+                    <h3 class="mb-4 text-3xl font-semibold bangers-regular">Mage</h3>
+                    <p class="font-light text-gray-500 sm:text-lg ">"Knowledge is Power"</p>
                     <div class="flex justify-center items-baseline my-8">
-                        <img id="loginImage"
-                             src="{{ asset('images/mageCHAR.png') }}"
-                             alt="login-image" class="mx-auto mb-8 w-96"/>
-
+                        <img src="{{ asset('images/mageCHAR.png') }}" alt="Mage" class="mx-auto mb-8 w-96">
                     </div>
-                    <!-- List -->
                     <ul role="list" class="mb-8 space-y-4 text-left">
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span>Wisdom unveils endless possibilities.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span>The mind is sharper than any blade.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
                             <span>Every insight is a step toward mastery.</span>
                         </li>
                     </ul>
-                    <form method="POST" action='{{ path('app_user_profession_choices' , { 'profession': 'Mage'}) }}'>
-
-                        <button href="#"
-                                class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">
-                            Choose
-                            the Mage!
+                    <form method="POST" action="{{ path('app_user_profession_choices', { 'profession': 'Mage' }) }}">
+                        <button type="submit"
+                                class="text-black bg-orangePeel hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-xl bangers-regular  px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                            Choose the Mage!
                         </button>
                     </form>
                 </div>
-                <!-- Pricing Card -->
-                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                    <h3 class="mb-4 text-2xl font-semibold">Rogue</h3>
-                    <p class="font-light text-gray-500 sm:text-lg dark:text-gray-400">"Cunning Overcomes Strength"</p>
+                <!-- Rogue Card -->
+                <div class="flex flex-col p-6 mx-auto max-w-lg text-center text-gray-900 bg-white rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8">
+                    <h3 class="mb-4 text-3xl font-semibold bangers-regular ">Rogue</h3>
+                    <p class="font-light text-gray-500 sm:text-lg ">"Cunning Overcomes Strength"</p>
                     <div class="flex justify-center items-baseline my-8">
-                        <img id="loginImage"
-                        src="{{ asset('images/rogueCHAR.png') }}"
-                             alt="login-image" class="mx-auto mb-8 w-96"/>
-
+                        <img src="{{ asset('images/rogueCHAR.png') }}" alt="Rogue" class="mx-auto mb-8 w-96">
                     </div>
-                    <!-- List -->
                     <ul role="list" class="mb-8 space-y-4 text-left">
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>Precision and timing are everything.</span>
+                            <span>Adaptability leads to success.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>A keen eye on people reveals the true prize.</span>
+                            <span>Strength comes in shadows.</span>
                         </li>
                         <li class="flex items-center space-x-3">
-                            <!-- Icon -->
                             <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor"
                                  viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                      clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                             </svg>
-                            <span>Trust is my best disguise."</span>
+                            <span>Every plan ends in action.</span>
                         </li>
-
                     </ul>
-                    <form method="POST" action='{{ path('app_user_profession_choices' , { 'profession': 'Rogue'}) }}'>
-
-                        <button href='{{ path('app_user_profession_choices' , { 'profession': 'Rogue'}) }}'
-                                class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-primary-900">
-                            Choose
-                            the Rogue!
+                    <form method="POST" action="{{ path('app_user_profession_choices', { 'profession': 'Rogue' }) }}">
+                        <button type="submit"
+                                class="text-black bg-orangePeel text-xl bangers-regular hover:bg-primary-700 focus:ring-4 focus:ring-primary-200 font-medium rounded-lg px-5 py-2.5 text-center dark:focus:ring-primary-900">
+                            Choose the Rogue!
                         </button>
                     </form>
                 </div>

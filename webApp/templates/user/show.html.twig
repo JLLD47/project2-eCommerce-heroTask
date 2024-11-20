@@ -5,7 +5,8 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 h-[calc(100vh-124px)] bg-[url('/images/backgrounddash.jpg')] bg-cover bg-center ">
         <div class="relative rounded-lg overflow-y-auto flex flex-col h-full">
             <img src="{{ asset('images/profileStats/scroll.png') }}"
-                 class="absolute top-0 left-0 w-full h-auto object-cover z-0 pt-9 pl-2.5 opacity-80" alt="Scroll background">
+                 class="absolute top-0 left-0 w-full h-auto object-cover z-0 pt-9 pl-2.5 opacity-80"
+                 alt="Scroll background">
 
             <div class="p-14 bg-tyrian-purple text-white relative z-10 flex-1">
                 <div class="mb-4 mt-12 flex text-black bangers-regular items-center justify-center text-4xl">{{ user.username }}</div>
@@ -34,7 +35,7 @@
                         <img src="{{ asset('images/profileStats/strengthProfile.png') }}"
                              class="h-20 relative z-10 -mb-4" alt="strength banner">
                         <div class="text-4xl bangers-regular font-bold text-black rounded-md px-8 pt-6">
-                                            {{ user.CurrentLevel }}
+                            {{ user.CurrentLevel }}
                         </div>
 
                     </div>
@@ -96,7 +97,8 @@
         <!-- Sección Central: Tareas Incompletas -->
         <div class="relative rounded-lg overflow-y-auto flex flex-col h-full">
             <img src="{{ asset('images/profileStats/scroll.png') }}"
-                 class="absolute top-0 left-0 w-full h-auto object-cover z-0 pt-9 pl-2.5 opacity-80" alt="Scroll background">
+                 class="absolute top-0 left-0 w-full h-auto object-cover z-0 pt-9 pl-2.5 opacity-80"
+                 alt="Scroll background">
 
             <div class="p-4 text-white relative z-10 flex-1">
                 <div class="text-center mb-8">
@@ -112,51 +114,56 @@
                 <div class="space-y-4">
                     {% for task in userTasks %}
                         {% if not task.completed and not task.failed %}
-                            <div class="mb-6 p-4 bg-white rounded-lg shadow max-w-2xl mx-auto">
+                            <div class="mb-6  bg-[url('/images/tablon.png')] bg-cover bg-center rounded-lg shadow w-full h-full mx-auto">
                                 <!-- Imagen centrada arriba -->
                                 <div class="flex justify-center mb-4">
+                                    <span class="stat hidden">{{ task.type }}</span>
                                     <img class="w-16 h-16 object-contain statImage" src="" alt="Task Image">
                                 </div>
+                                    <!-- Contenido de la tarea -->
+                                <div >
+                                    <div class="flex items-center gap-12 justify-around">
+                                        <div class="text-center">
+                                            <!-- Título de la tarea con enlace -->
+                                            <a href="{{ path('app_task_edit', {'id': task.id}) }}"
+                                               class="block font-bold text-blue-950 text-3xl bangers-regular">
+                                                {{ task.title }}
+                                            </a>
+                                            <div>
+                                                <!-- Descripción de la tarea -->
+                                                <p class="text-gray-700 mt-2">{{ task.description }}</p>
+                                            </div>
+                                        </div>
 
-                                <!-- Contenido de la tarea -->
-                                <div class="text-center">
-                                    <!-- Título de la tarea con enlace -->
-                                    <a href="{{ path('app_task_edit', {'id': task.id}) }}"
-                                       class="block font-bold text-blue-950 text-3xl bangers-regular">
-                                        {{ task.title }}
-                                    </a>
+                                        <!-- Botones de acción alineados a la derecha -->
+                                        <div class="flex flex-col items-end space-y-4 justify-center mt-4">
+                                            <!-- Botón: Completar -->
+                                            <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
+                                                <input type="hidden" name="_method" value="PATCH">
+                                                <button type="submit"
+                                                        class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
+                                                    Complete!
+                                                </button>
+                                            </form>
 
-                                    <!-- Descripción de la tarea -->
-                                    <p class="text-gray-700 mt-2">{{ task.description }}</p>
-                                </div>
+                                            <!-- Botón: Abandonar -->
+                                            <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
+                                                <button type="submit"
+                                                        class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-32">
+                                                    Forfeit
+                                                </button>
+                                            </form>
 
-                                <!-- Botones de acción alineados a la derecha -->
-                                <div class="flex flex-col items-end space-y-4 justify-center mt-4">
-                                    <!-- Botón: Completar -->
-                                    <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
-                                        <input type="hidden" name="_method" value="PATCH">
-                                        <button type="submit"
-                                                class="bg-green-500 hover:bg-green-600 text-black font-bold py-2 px-4 rounded w-32">
-                                            Complete!
-                                        </button>
-                                    </form>
-
-                                    <!-- Botón: Abandonar -->
-                                    <form action="{{ path('app_task_delete', {'id': task.id}) }}" method="POST">
-                                        <button type="submit"
-                                                class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-32">
-                                            Forfeit
-                                        </button>
-                                    </form>
-
-                                    <!-- Botón: Editar -->
-                                    <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
-                                        <input type="hidden" name="_method" value="PATCH">
-                                        <button type="submit"
-                                                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32">
-                                            Edit
-                                        </button>
-                                    </form>
+                                            <!-- Botón: Editar -->
+                                            <form action="{{ path('app_task_edit', {'id': task.id}) }}" method="POST">
+                                                <input type="hidden" name="_method" value="PATCH">
+                                                <button type="submit"
+                                                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-32">
+                                                    Edit
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         {% endif %}
@@ -171,7 +178,7 @@
         <div class="p-4 rounded-lg h-full overflow-y-auto">
             <div class="grid grid-rows-2 gap-4 h-full">
                 <!-- Bloque Superior: Completadas -->
-                <div class="bg-[url('/images/backgroundtrophy2.jpeg')] bg-cover bg-center p-4 rounded overflow-y-auto">
+                <div class="bg-[url('/images/profileStats/scroll.png')] bg-cover bg-center p-4 rounded overflow-y-auto">
                     <div class="flex items-center justify-center mb-4">
                         <img src="{{ asset('/images/CQuest.png') }}" class="h-11 mr-2"/>
                         <h2 class="text-black bangers-regular text-2xl">Completed</h2>
@@ -196,7 +203,7 @@
                 </div>
 
                 <!-- Bloque Inferior: Fallidas -->
-                <div class="bg-red-300 p-4 rounded overflow-y-auto">
+                <div class="bg-[url('/images/profileStats/scroll.png')] bg-cover bg-center p-4 rounded overflow-y-auto">
                     <div class="flex items-center justify-center mb-4">
                         <img src="{{ asset('/images/FQuest.png') }}" class="h-11 mr-2"/>
                         <h2 class="text-black bangers-regular text-2xl">Failed</h2>

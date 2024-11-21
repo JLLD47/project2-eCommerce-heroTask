@@ -3,7 +3,7 @@
 {% block header %}{% endblock %}
 {% block body %}
 
-    <section class="bg-yInMnBlue">
+    <section class="bg-[url('/images/bgtest.jpg')] bg-cover">
         <div class=" px-4 mx-auto max-w-screen-xl lg:px-6">
             <div class="mx-auto max-w-screen-md text-center mb-8 lg:mb-12">
                 <img src="{{ asset('images/chooseCHAR.png') }}" alt="Choose Character" class="mb-4">
@@ -127,4 +127,6 @@
         </div>
     </section>
 
+{% endblock %}
+{% block footer %}
 {% endblock %}

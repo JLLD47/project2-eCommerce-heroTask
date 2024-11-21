@@ -137,7 +137,7 @@
                  alt="Scroll background">
 
             <div class="p-4 text-white relative z-10 flex-1">
-                <div class="text-center mb-8">
+                <div class="text-center mb-8 mt-8">
                     <button class="bg-orangePeel border-2 border-black mb-8 text-black text-2xl hover:bg-tyrianPurple bangers-regular hover:text-white font-bold mt-12 py-2 px-6 rounded-l"
                             onclick="window.location.href='{{ path('app_task_new') }}'">
                         Add a New Quest!
@@ -157,14 +157,14 @@
                                     <div class="flex items-center w-full">
                                         <img class="w-32 h-32 object-contain -mt-10 statImage" src="" alt="Task Icon">
                                         <span class="stat hidden">{{ task.type }}</span>
-                                        <h3 class="text-black ml-16 font-bold text-2xl bangers-regular">{{ task.title }}</h3>
+                                        <h3 class="text-black ml-16 mt-[6%] font-bold text-2xl bangers-regular">{{ task.title }}</h3>
                                     </div>
 
                                     <!-- Descripción -->
-                                    <p class="text-gray-700 ml-40 text-base -mt-32">{{ task.description }}</p>
+                                    <p class="text-black pl-10 -mt-12 pr-10">{{ task.description }}</p>
 
                                     <!-- Botones de acción -->
-                                    <div class="flex space-x-4 ml-28 -mt-40">
+                                    <div class="flex space-x-4 ml-28 mt-40">
                                         <!-- Botón: Completar -->
                                         <form action="{{ path('task_done', {'id': task.id}) }}" method="POST">
                                             <input type="hidden" name="_method" value="PATCH">

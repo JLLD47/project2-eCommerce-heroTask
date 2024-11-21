@@ -4,10 +4,10 @@
 
 {% block body %}
     <!-- Main modal -->
-    <div id="defaultModal" class="h-[calc(100vh-44px)] flex items-center justify-center bg-[url('/images/bgtest.jpg')] bg-cover bg-center  ">
-        <div class="relative p-4 w-full max-w-2xl">
+    <div id="defaultModal" class="h-[calc(100vh-44px)] flex items-center justify-center bg-[url('/images/bgtest.jpg')] -mt-1 bg-cover bg-center  ">
+        <div class="relative p-2 w-full max-w-2xl">
             <!-- Modal content -->
-            <div class="bg-[url('/images/backgroundtrophy2.jpeg')] bg-cover bg-center border-4 border-black relative p-4 rounded-t-full  shadow bg-sm:p-6">
+            <div class="bg-[url('/images/backgroundtrophy2.png')] bg-cover bg-center border- border-2 border-black relative p-4 rounded-t-full  shadow bg-sm:p-6">
                 <!-- Modal header -->
                 <div class="relative flex justify-center items-center mt-4 pb-4 mb-4 rounded-t sm:mb-5">
                     <img src="{{ asset('/images/form/newQuestForm.png') }}" class="h-32">
@@ -31,7 +31,7 @@
                     {{ form_row(form.title, {
                         'label': '<img src="/images/form/formTitle.png" alt="Title" class="inline h-12">',
                         'label_html': true,
-                        'attr': {'class': 'bg-gray-50 border-4 border-black text-gray-900 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 mt-4', 'placeholder': 'Quest title'}
+                        'attr': {'class': 'bg-gray-50 text-black border-2 border-teaGreen  opacity-80 text-sm rounded-lg focus:ring-yellow-600 focus:border-yellow-600 block w-full p-2.5 mt-4', 'placeholder': 'Quest title'}
                     }) }}
                 </div>
                 <!-- Selects -->
@@ -41,7 +41,7 @@
                             'label': '<img src="/images/form/formType.png" alt="Title" class="inline h-12">',
                             'label_html': true,
                             'label_attr': {'class': 'text-white'},
-                            'attr': {'class': 'border-4 border-black mt-4 bg-white text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
+                            'attr': {'class': 'border-2 border-teaGreen  mt-4 bg-white text-black text-sm opacity-80 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
                         }) }}
                     </div>
                     <div>
@@ -49,7 +49,7 @@
                             'label': '<img src="/images/form/formDiff.png" alt="Title" class="inline h-12">',
                             'label_html': true,
                             'label_attr': {'class': 'text-white'},
-                            'attr': {'class': 'mt-4 bg-gray-50 border-4 border-black text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
+                            'attr': {'class': 'mt-4 bg-gray-50 border-2 border-teaGreen  text-gray-900 text-sm opacity-80 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'}
                         }) }}
                     </div>
                 </div>
@@ -60,14 +60,14 @@
                         'label': '<img src="/images/form/formDescr.png" alt="Title" class="inline h-16 ml-4">',
                         'label_html': true,
                         'label_attr': {'class': 'text-white'},
-                        'attr': {'class': 'mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-4 border-black focus:ring-primary-500 focus:border-primary-500 h-32' , 'rows': '10', 'placeholder': 'SAL ALGO PORFAVÓ ODIO EL ESTILADO'},
+                        'attr': {'class': 'mt-4 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-2 opacity-80 border-teaGreen  focus:ring-primary-500 focus:border-primary-500 h-32' , 'rows': '10', 'placeholder': 'SAL ALGO PORFAVÓ ODIO EL ESTILADO'},
 
                     }) }}
                 </div>
                 <!-- Submit Button -->
                 <div class="flex justify-center mt-6 ">
                     <button type="submit"
-                            class="text-white inline-flex items-center bg-orangePeel hover:bg-sky-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                            class="text-black bangers-regular text-3xl inline-flex items-center bg-orangePeel hover:bg-tyrianPurple border-2 border-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg  px-5 py-2.5 text-center">
                         <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/FFFFFF/sword.png" class="mr-1.5" alt="sword"/>
                         Embark on a quest!
                     </button>
